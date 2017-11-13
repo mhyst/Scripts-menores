@@ -1,0 +1,35 @@
+#!/bin/bash
+destination="/home/mhyst/bin/"
+
+if [[ $1 == "" ]]; then
+	echo "Debe introducir el nombre del script"
+	exit 1
+fi
+
+dir=`pwd`
+
+#if [[ $dif != "^*?/bin/script/*?" ]]; then
+#	echo "No se permite poner en producción si no es desde la ruta ~/bin/scripts/*"
+#	exit 1
+#fi
+
+if [[ -e $1 ]]; then
+	echo "Archivo de origen existe"
+	if [[ -e "$destination$1" ]]; then
+		echo "Archivo de destino existe"
+		dife=`diff "$1" "$destination$1"`
+		
+		if [[ ${#dife} == 0 ]]; then
+			echo "Los archivos son iguales. No es necesario hacer nada"
+			exit 0
+		else
+			echo "Los archivos no son iguales -> Poner en producción"
+		fi
+	else
+		echo "El archivo de destino no existe"
+	fi
+	cp "$1" ~/bin/
+	echo "Script $1 puesto en producción: ~/bin/$1"
+else
+	echo "El archivo $1 no existe"
+fi
