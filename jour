@@ -1,0 +1,6 @@
+#!/bin/bash
+#Mostrar y editar el diario de conocimientos
+JOURNAL=~/bin/scripts/journal
+
+[ $# == 0 ] && less $JOURNAL
+[ "$1" == "-e" ] && editor $JOURNAL || echo "Uso: jour [-e]"

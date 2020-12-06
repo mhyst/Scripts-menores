@@ -1,0 +1,21 @@
+#!/bin/bash
+#Temporizador con alarma sonora. Hay que especificarle el tiempo en segundos
+song="/home/mhyst/bin/alarma.wav"
+let time=3*60
+measure="minutos";
+
+if [[ $# > 0 ]]; then
+    re='^[0-9]+$'
+    if ! [[ $1 =~ $re ]]; then
+	echo "Error: El argumento no es un número" >&2
+	exit 1
+    else
+	let time=60*$1
+    fi
+fi
+
+[[ $1 == 1 ]] && measure="minuto";
+
+echo "Le avisaré en $1 ${measure}."
+sleep $time
+mpv "$song"
